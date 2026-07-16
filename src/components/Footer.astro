@@ -1,0 +1,137 @@
+﻿---
+import { locales, localePath, SITE, whatsappUrl, type Dictionary, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  t: Dictionary;
+}
+const { locale, t } = Astro.props;
+const wa = whatsappUrl(t.whatsapp.prefill);
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__grid">
+      <div class="footer__block">
+        <p class="brand footer__brand">La Natura</p>
+        <address class="footer__address">{SITE.address}</address>
+        <p class="footer__contact">
+          <a href={`tel:${SITE.phoneTel}`}>{SITE.phoneDisplay}</a>
+          <span aria-hidden="true"> · </span>
+          <a href={wa} target="_blank" rel="noopener noreferrer">{t.nav.whatsapp}</a>
+        </p>
+      </div>
+      <div class="footer__block">
+        <p class="footer__label">{t.footer.follow}</p>
+        <p class="footer__social">
+          <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+          <span aria-hidden="true"> · </span>
+          <a href={SITE.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+        </p>
+      </div>
+      <nav class="footer__langs" aria-label="Language">
+        {locales.map((l) => (
+          <a
+            href={localePath(l)}
+            hreflang={l}
+            aria-current={l === locale ? 'page' : undefined}
+          >
+            {l.toUpperCase()}
+          </a>
+        ))}
+      </nav>
+    </div>
+    <p class="footer__rights">&copy; {year} {t.footer.rights}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-ink);
+    color: rgba(255, 255, 255, 0.85);
+    padding: clamp(2.5rem, 6vw, 4rem) var(--space);
+  }
+
+  .footer__inner {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr auto;
+      align-items: start;
+    }
+  }
+
+  .footer__brand {
+    color: #fff;
+    font-size: 1.35rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .footer__address {
+    font-style: normal;
+    margin: 0 0 0.75rem;
+    line-height: 1.55;
+    font-size: 0.95rem;
+  }
+
+  .footer__contact,
+  .footer__social {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .footer__label {
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .footer a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer a:hover {
+    color: var(--color-cream);
+  }
+
+  .footer__langs {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .footer__langs a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.4rem;
+    border-radius: 2px;
+  }
+
+  .footer__langs a[aria-current='page'] {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+
+  .footer__rights {
+    margin: 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+</style>
