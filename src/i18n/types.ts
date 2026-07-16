@@ -1,4 +1,4 @@
-export type Locale = 'it' | 'en' | 'fr';
+﻿export type Locale = 'it' | 'en' | 'fr';
 
 export type Dictionary = {
   meta: { title: string; description: string };

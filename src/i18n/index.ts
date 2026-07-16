@@ -1,4 +1,4 @@
-import it from './it';
+﻿import it from './it';
 import en from './en';
 import fr from './fr';
 import type { Dictionary, Locale } from './types';
@@ -30,7 +30,7 @@ export const SITE = {
   mapsUrl:
     'https://www.google.com/maps/search/?api=1&query=Strada+Santa+Scolastica+2+Savigliano',
   instagram: 'https://www.instagram.com/agriturismo_la_natura/',
-  facebook: 'https://www.facebook.com/',
+  facebook: '',
   priceRange: '\u20ac20\u201330',
   ogImage: '/images/hero.jpg',
 } as const;

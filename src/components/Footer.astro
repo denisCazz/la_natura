@@ -1,4 +1,4 @@
----
+﻿---
 import { locales, localePath, SITE, whatsappUrl, type Dictionary, type Locale } from '../i18n';
 
 interface Props {
@@ -25,8 +25,12 @@ const year = new Date().getFullYear();
         <p class="footer__label">{t.footer.follow}</p>
         <p class="footer__social">
           <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
-          <span aria-hidden="true"> · </span>
-          <a href={SITE.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+          {SITE.facebook && (
+            <>
+              <span aria-hidden="true"> · </span>
+              <a href={SITE.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+            </>
+          )}
         </p>
       </div>
       <nav class="footer__langs" aria-label={t.a11y.languageNav}>

@@ -1,9 +1,9 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LandingPage from '../components/LandingPage.astro';
 import { getDictionary } from '../i18n';
 const locale = 'it' as const;
 ---
 <BaseLayout locale={locale} t={getDictionary(locale)}>
-  <LandingPage locale={locale} />
+  <LandingPage locale={locale} t={getDictionary(locale)} />
 </BaseLayout>
