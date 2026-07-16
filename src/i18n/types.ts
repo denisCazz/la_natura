@@ -1,4 +1,4 @@
-export type Locale = 'it' | 'en' | 'fr';
+﻿export type Locale = 'it' | 'en' | 'fr';
 
 export type Dictionary = {
   meta: { title: string; description: string };
@@ -20,6 +20,7 @@ export type Dictionary = {
     price: string;
     addressLabel: string;
     mapCta: string;
+    phoneLabel: string;
   };
   footer: {
     rights: string;

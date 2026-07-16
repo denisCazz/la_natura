@@ -34,7 +34,7 @@ const { t } = Astro.props;
         </dd>
       </div>
       <div class="info__row">
-        <dt>Tel</dt>
+        <dt>{t.info.phoneLabel}</dt>
         <dd>
           <a class="info__link" href={`tel:${SITE.phoneTel}`}>{SITE.phoneDisplay}</a>
         </dd>

@@ -1,0 +1,25 @@
+﻿---
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import Cucina from './Cucina.astro';
+import Luogo from './Luogo.astro';
+import Info from './Info.astro';
+import Footer from './Footer.astro';
+import WhatsAppSticky from './WhatsAppSticky.astro';
+import { getDictionary, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = getDictionary(locale);
+---
+<Header locale={locale} t={t} />
+<main id="main">
+  <Hero locale={locale} t={t} />
+  <Cucina locale={locale} t={t} />
+  <Luogo locale={locale} t={t} />
+  <Info locale={locale} t={t} />
+</main>
+<Footer locale={locale} t={t} />
+<WhatsAppSticky t={t} />

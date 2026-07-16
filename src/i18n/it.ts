@@ -1,4 +1,4 @@
-import type { Dictionary } from './types';
+﻿import type { Dictionary } from './types';
 
 const it: Dictionary = {
   meta: {
@@ -33,6 +33,7 @@ const it: Dictionary = {
     price: '\u20ac20\u201330 a persona',
     addressLabel: 'Dove siamo',
     mapCta: 'Apri in Google Maps',
+    phoneLabel: 'Tel',
   },
   footer: {
     rights: 'Agriturismo La Natura \u00b7 Savigliano',

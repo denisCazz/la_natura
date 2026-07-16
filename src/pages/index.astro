@@ -1,25 +1,9 @@
 ﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Cucina from '../components/Cucina.astro';
-import Luogo from '../components/Luogo.astro';
-import Info from '../components/Info.astro';
-import Footer from '../components/Footer.astro';
-import WhatsAppSticky from '../components/WhatsAppSticky.astro';
+import LandingPage from '../components/LandingPage.astro';
 import { getDictionary } from '../i18n';
-
 const locale = 'it' as const;
-const t = getDictionary(locale);
 ---
-<BaseLayout locale={locale} t={t}>
-  <Header locale={locale} t={t} />
-  <main id="main">
-    <Hero locale={locale} t={t} />
-    <Cucina locale={locale} t={t} />
-    <Luogo locale={locale} t={t} />
-    <Info locale={locale} t={t} />
-  </main>
-  <Footer locale={locale} t={t} />
-  <WhatsAppSticky t={t} />
+<BaseLayout locale={locale} t={getDictionary(locale)}>
+  <LandingPage locale={locale} />
 </BaseLayout>
