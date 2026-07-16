@@ -1,4 +1,5 @@
 ﻿---
+import LogoMark from './LogoMark.astro';
 import { SITE, whatsappUrl, type Dictionary } from '../i18n';
 
 interface Props {
@@ -9,11 +10,11 @@ const wa = whatsappUrl(t.whatsapp.prefill);
 ---
 <section class="hero" aria-label={t.hero.brand}>
   <div class="hero__media" aria-hidden="true">
-    <img class="hero__bg" src="/images/hero.jpg" alt="" />
+    <img class="hero__bg" src="/images/outside.png" alt="" />
   </div>
   <div class="hero__veil"></div>
   <div class="hero__content">
-    <p class="brand hero__brand">{t.hero.brand}</p>
+    <LogoMark class="hero__logo" size="lg" alt={SITE.name} />
     <h1 class="hero__title">{t.hero.headline}</h1>
     <p class="hero__support">{t.hero.support}</p>
     <div class="hero__actions">
@@ -43,6 +44,7 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 40%;
     animation: kenburns 18s ease-in-out alternate infinite;
   }
 
@@ -52,9 +54,9 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     z-index: 1;
     background: linear-gradient(
       to top,
-      rgba(44, 58, 46, 0.9) 0%,
+      rgba(44, 58, 46, 0.92) 0%,
       rgba(44, 58, 46, 0.55) 45%,
-      rgba(44, 58, 46, 0.2) 100%
+      rgba(44, 58, 46, 0.25) 100%
     );
   }
 
@@ -67,21 +69,17 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     padding: calc(var(--header-h) + 2rem) var(--space) clamp(3rem, 10vh, 5rem);
   }
 
-  .hero__brand {
-    font-size: clamp(2.75rem, 8vw, 4.5rem);
-    font-weight: 700;
-    margin: 0 0 0.5rem;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+  .hero__logo {
+    margin: 0 0 1.25rem;
   }
 
   .hero__title {
     font-family: var(--font-display);
-    font-size: clamp(1.35rem, 3.5vw, 2rem);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
     font-weight: 500;
     margin: 0 0 1rem;
     line-height: 1.25;
-    opacity: 0.95;
+    opacity: 0.98;
   }
 
   .hero__support {
@@ -99,12 +97,12 @@ const wa = whatsappUrl(t.whatsapp.prefill);
   }
 
   @media (max-width: 400px) {
-    .hero__brand {
-      font-size: clamp(2.25rem, 12vw, 2.75rem);
+    .hero__logo {
+      margin-bottom: 1rem;
     }
 
     .hero__title {
-      font-size: clamp(1.2rem, 5.5vw, 1.35rem);
+      font-size: clamp(1.25rem, 5.5vw, 1.5rem);
     }
 
     .hero__content {

@@ -16,10 +16,12 @@ export type Dictionary = {
     title: string;
     hoursLabel: string;
     hours: string;
+    hoursImageAlt: string;
     priceLabel: string;
     price: string;
     addressLabel: string;
     mapCta: string;
+    mapTitle: string;
     phoneLabel: string;
   };
   footer: {

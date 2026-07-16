@@ -9,36 +9,65 @@ const { t } = Astro.props;
 <section class="section section--cream reveal" aria-labelledby="info-title">
   <div class="section__inner info">
     <h2 id="info-title" class="info__title">{t.info.title}</h2>
-    <dl class="info__list">
-      <div class="info__row">
-        <dt>{t.info.hoursLabel}</dt>
-        <dd>{t.info.hours}</dd>
+
+    <div class="info__layout">
+      <figure class="info__hours-card">
+        <img
+          class="info__hours-img"
+          src="/images/hero_info.png"
+          alt={t.info.hoursImageAlt}
+          width="720"
+          height="900"
+          loading="lazy"
+        />
+        <figcaption class="info__hours-caption">
+          <span class="info__hours-label">{t.info.hoursLabel}</span>
+          {t.info.hours}
+        </figcaption>
+      </figure>
+
+      <div class="info__details">
+        <dl class="info__list">
+          <div class="info__row">
+            <dt>{t.info.priceLabel}</dt>
+            <dd>{t.info.price}</dd>
+          </div>
+          <div class="info__row">
+            <dt>{t.info.addressLabel}</dt>
+            <dd>
+              <address class="info__address">{SITE.address}</address>
+              <a
+                class="info__link"
+                href={SITE.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.info.mapCta}
+              </a>
+            </dd>
+          </div>
+          <div class="info__row">
+            <dt>{t.info.phoneLabel}</dt>
+            <dd>
+              <a class="info__link" href={`tel:${SITE.phoneTel}`}>{SITE.phoneDisplay}</a>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="info__map-block">
+          <h3 class="info__map-title">{t.info.mapTitle}</h3>
+          <div class="info__map">
+            <iframe
+              title={t.info.mapTitle}
+              src={SITE.mapsEmbedUrl}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
       </div>
-      <div class="info__row">
-        <dt>{t.info.priceLabel}</dt>
-        <dd>{t.info.price}</dd>
-      </div>
-      <div class="info__row">
-        <dt>{t.info.addressLabel}</dt>
-        <dd>
-          <address class="info__address">{SITE.address}</address>
-          <a
-            class="info__link"
-            href={SITE.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t.info.mapCta}
-          </a>
-        </dd>
-      </div>
-      <div class="info__row">
-        <dt>{t.info.phoneLabel}</dt>
-        <dd>
-          <a class="info__link" href={`tel:${SITE.phoneTel}`}>{SITE.phoneDisplay}</a>
-        </dd>
-      </div>
-    </dl>
+    </div>
   </div>
 </section>
 
@@ -49,12 +78,52 @@ const { t } = Astro.props;
     color: var(--color-ink);
   }
 
-  .info__list {
+  .info__layout {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 840px) {
+    .info__layout {
+      grid-template-columns: minmax(14rem, 22rem) 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .info__hours-card {
     margin: 0;
+  }
+
+  .info__hours-img {
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+    box-shadow: 0 12px 36px rgba(44, 58, 46, 0.14);
+  }
+
+  .info__hours-caption {
+    margin-top: 0.85rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+
+  .info__hours-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-leaf);
+    margin-bottom: 0.25rem;
+  }
+
+  .info__list {
+    margin: 0 0 2rem;
     display: flex;
     flex-direction: column;
     gap: 0;
-    max-width: 36rem;
   }
 
   .info__row {
@@ -92,10 +161,40 @@ const { t } = Astro.props;
     font-weight: 600;
   }
 
+  .info__map-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    margin: 0 0 0.85rem;
+    color: var(--color-ink);
+  }
+
+  .info__map {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    min-height: 16rem;
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px solid rgba(44, 58, 46, 0.12);
+    background: rgba(44, 58, 46, 0.06);
+  }
+
+  .info__map iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
   @media (max-width: 480px) {
     .info__row {
       grid-template-columns: 1fr;
       gap: 0.35rem;
+    }
+
+    .info__map {
+      aspect-ratio: 4 / 3;
     }
   }
 </style>

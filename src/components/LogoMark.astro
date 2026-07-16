@@ -1,0 +1,66 @@
+﻿---
+interface Props {
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+  alt?: string;
+}
+
+const { class: className = '', size = 'sm', alt = 'Agriturismo La Natura' } = Astro.props;
+---
+<span class:list={['logo-mark', `logo-mark--${size}`, className]}>
+  <img class="logo-mark__img" src="/images/logo.png" alt={alt} width="512" height="512" />
+</span>
+
+<style>
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  }
+
+  .logo-mark--sm {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .logo-mark--md {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .logo-mark--lg {
+    width: min(11rem, 42vw);
+    height: min(11rem, 42vw);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .logo-mark__img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .logo-mark--sm {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .logo-mark--lg {
+      width: min(8.5rem, 38vw);
+      height: min(8.5rem, 38vw);
+    }
+  }
+</style>

@@ -1,0 +1,17 @@
+﻿node_modules
+dist
+.git
+.github
+.astro
+.vscode
+.idea
+.superpowers
+docs
+*.md
+.env
+.env.*
+!.env.example
+npm-debug.log*
+.DS_Store
+Thumbs.db
+docker-compose*.yml

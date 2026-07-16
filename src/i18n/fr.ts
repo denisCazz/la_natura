@@ -1,4 +1,4 @@
-import type { Dictionary } from './types';
+﻿import type { Dictionary } from './types';
 
 const fr: Dictionary = {
   meta: {
@@ -29,10 +29,12 @@ const fr: Dictionary = {
     title: 'Infos et r\u00e9servations',
     hoursLabel: 'Horaires',
     hours: 'Ouvert \u00e0 midi et le soir \u00b7 Ferm\u00e9 le mardi',
+    hoursImageAlt: 'Panneau des horaires Agriturismo La Natura\u00a0: ouvert midi et soir, ferm\u00e9 le mardi',
     priceLabel: 'Indicatif',
     price: '20\u201330\u00a0\u20ac par personne',
     addressLabel: 'O\u00f9 nous trouver',
     mapCta: 'Ouvrir dans Google Maps',
+    mapTitle: 'Carte',
     phoneLabel: 'Tél',
   },
   footer: {
