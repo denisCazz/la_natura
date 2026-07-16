@@ -1,10 +1,17 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import WhatsAppSticky from '../components/WhatsAppSticky.astro';
 import { getDictionary } from '../i18n';
 
 const locale = 'it' as const;
 const t = getDictionary(locale);
 ---
 <BaseLayout locale={locale} t={t}>
-  <main id="main"><p>{t.hero.headline}</p></main>
+  <Header locale={locale} t={t} />
+  <main id="main">
+    <Hero locale={locale} t={t} />
+  </main>
+  <WhatsAppSticky t={t} />
 </BaseLayout>

@@ -1,0 +1,132 @@
+---
+import { locales, localePath, SITE, whatsappUrl, type Dictionary, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  t: Dictionary;
+}
+const { locale, t } = Astro.props;
+const wa = whatsappUrl(t.whatsapp.prefill);
+---
+<header class="header">
+  <div class="header__inner">
+    <a class="brand header__brand" href={localePath(locale)}>La Natura</a>
+    <nav class="header__langs" aria-label="Language">
+      {locales.map((l) => (
+        <a
+          href={localePath(l)}
+          hreflang={l}
+          aria-current={l === locale ? 'page' : undefined}
+        >
+          {l.toUpperCase()}
+        </a>
+      ))}
+    </nav>
+    <div class="header__cta">
+      <a class="btn btn-primary header__call" href={`tel:${SITE.phoneTel}`}>{t.nav.call}</a>
+      <a class="btn header__wa" href={wa} target="_blank" rel="noopener noreferrer">{t.nav.whatsapp}</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(44, 58, 46, 0.92);
+    backdrop-filter: blur(6px);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0.75rem var(--space);
+    min-height: var(--header-h);
+  }
+
+  .header__brand {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.25rem;
+    margin-right: auto;
+  }
+
+  .header__brand:hover {
+    color: var(--color-cream);
+  }
+
+  .header__langs {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .header__langs a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.4rem;
+    border-radius: 2px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+
+  .header__langs a:hover {
+    color: #fff;
+  }
+
+  .header__langs a[aria-current='page'] {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .header__cta {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .header__call {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.875rem;
+  }
+
+  .header__wa {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.875rem;
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .header__wa:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.75);
+  }
+
+  @media (max-width: 640px) {
+    .header__inner {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.6rem var(--space);
+    }
+
+    .header__brand {
+      font-size: 1.1rem;
+    }
+
+    .header__cta .header__call {
+      display: none;
+    }
+
+    .header__wa {
+      padding: 0.45rem 0.7rem;
+      font-size: 0.8rem;
+    }
+  }
+</style>

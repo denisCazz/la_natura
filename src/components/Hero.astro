@@ -1,0 +1,101 @@
+---
+import { SITE, whatsappUrl, type Dictionary, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const wa = whatsappUrl(t.whatsapp.prefill);
+---
+<section class="hero" aria-label={t.hero.brand}>
+  <div class="hero__media" aria-hidden="true">
+    <img class="hero__bg" src="/images/hero.jpg" alt="" />
+  </div>
+  <div class="hero__veil"></div>
+  <div class="hero__content">
+    <p class="brand hero__brand">{t.hero.brand}</p>
+    <h1 class="hero__title">{t.hero.headline}</h1>
+    <p class="hero__support">{t.hero.support}</p>
+    <div class="hero__actions">
+      <a class="btn btn-primary" href={`tel:${SITE.phoneTel}`}>{t.hero.ctaCall}</a>
+      <a class="btn btn-ghost" href={wa} target="_blank" rel="noopener noreferrer">{t.hero.ctaWhatsApp}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: kenburns 18s ease-in-out alternate infinite;
+  }
+
+  .hero__veil {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to top,
+      rgba(44, 58, 46, 0.82) 0%,
+      rgba(44, 58, 46, 0.45) 45%,
+      rgba(44, 58, 46, 0.15) 100%
+    );
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: calc(var(--header-h) + 2rem) var(--space) clamp(3rem, 10vh, 5rem);
+  }
+
+  .hero__brand {
+    font-size: clamp(2.75rem, 8vw, 4.5rem);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+    font-weight: 500;
+    margin: 0 0 1rem;
+    line-height: 1.25;
+    opacity: 0.95;
+  }
+
+  .hero__support {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    max-width: 36ch;
+    margin: 0 0 1.75rem;
+    line-height: 1.55;
+    opacity: 0.9;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

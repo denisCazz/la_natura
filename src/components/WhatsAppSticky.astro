@@ -1,0 +1,51 @@
+---
+import { whatsappUrl, type Dictionary } from '../i18n';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const wa = whatsappUrl(t.whatsapp.prefill);
+---
+<a
+  class="wa-sticky"
+  href={wa}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={t.a11y.stickyWhatsApp}
+>
+  WhatsApp
+</a>
+
+<style>
+  .wa-sticky {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.25rem;
+    background: var(--color-terracotta);
+    color: #fff;
+    font: 600 0.9rem/1 var(--font-body);
+    text-decoration: none;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(44, 58, 46, 0.25);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .wa-sticky:hover {
+    background: #8f4e34;
+    transform: translateY(-2px);
+  }
+
+  @media (min-width: 768px) {
+    .wa-sticky {
+      padding: 0.75rem 1.1rem;
+      font-size: 0.85rem;
+      opacity: 0.92;
+    }
+  }
+</style>
