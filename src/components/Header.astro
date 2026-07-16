@@ -11,7 +11,7 @@ const wa = whatsappUrl(t.whatsapp.prefill);
 <header class="header">
   <div class="header__inner">
     <a class="brand header__brand" href={localePath(locale)}>La Natura</a>
-    <nav class="header__langs" aria-label="Language">
+    <nav class="header__langs" aria-label={t.a11y.languageNav}>
       {locales.map((l) => (
         <a
           href={localePath(l)}
@@ -120,12 +120,12 @@ const wa = whatsappUrl(t.whatsapp.prefill);
       font-size: 1.1rem;
     }
 
-    .header__cta .header__call {
+    .header__wa {
       display: none;
     }
 
-    .header__wa {
-      padding: 0.45rem 0.7rem;
+    .header__call {
+      padding: 0.45rem 0.75rem;
       font-size: 0.8rem;
     }
   }

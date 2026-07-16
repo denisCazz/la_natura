@@ -1,8 +1,8 @@
-﻿import type { Dictionary } from './types';
+import type { Dictionary } from './types';
 
 const fr: Dictionary = {
   meta: {
-    title: 'Agriturismo La Natura | Savigliano',
+    title: 'La Natura Agritourisme | Savigliano, Piémont',
     description:
       'Cuisine de campagne \u00e0 Savigliano\u00a0: potager, viande italienne et accueil de Valentin et Silvana. R\u00e9servez pour le d\u00e9jeuner ou le d\u00eener.',
   },
@@ -45,6 +45,7 @@ const fr: Dictionary = {
   a11y: {
     skip: 'Aller au contenu',
     stickyWhatsApp: 'R\u00e9server sur WhatsApp',
+    languageNav: 'Choisir la langue',
   },
 };
 

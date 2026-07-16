@@ -1,4 +1,4 @@
-﻿---
+---
 import { locales, localePath, SITE, whatsappUrl, type Dictionary, type Locale } from '../i18n';
 
 interface Props {
@@ -29,7 +29,7 @@ const year = new Date().getFullYear();
           <a href={SITE.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
         </p>
       </div>
-      <nav class="footer__langs" aria-label="Language">
+      <nav class="footer__langs" aria-label={t.a11y.languageNav}>
         {locales.map((l) => (
           <a
             href={localePath(l)}

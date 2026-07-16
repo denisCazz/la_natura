@@ -53,9 +53,9 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     z-index: 1;
     background: linear-gradient(
       to top,
-      rgba(44, 58, 46, 0.82) 0%,
-      rgba(44, 58, 46, 0.45) 45%,
-      rgba(44, 58, 46, 0.15) 100%
+      rgba(44, 58, 46, 0.9) 0%,
+      rgba(44, 58, 46, 0.55) 45%,
+      rgba(44, 58, 46, 0.2) 100%
     );
   }
 
@@ -97,5 +97,26 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  @media (max-width: 400px) {
+    .hero__brand {
+      font-size: clamp(2.25rem, 12vw, 2.75rem);
+    }
+
+    .hero__title {
+      font-size: clamp(1.2rem, 5.5vw, 1.35rem);
+    }
+
+    .hero__content {
+      padding-bottom: clamp(4.5rem, 14vh, 5.5rem);
+    }
+
+    .hero__actions .btn {
+      flex: 1 1 calc(50% - 0.375rem);
+      min-width: 0;
+      padding: 0.75rem 0.85rem;
+      font-size: 0.9rem;
+    }
   }
 </style>

@@ -1,4 +1,4 @@
-﻿import type { Dictionary } from './types';
+import type { Dictionary } from './types';
 
 const it: Dictionary = {
   meta: {
@@ -45,6 +45,7 @@ const it: Dictionary = {
   a11y: {
     skip: 'Vai al contenuto',
     stickyWhatsApp: 'Prenota su WhatsApp',
+    languageNav: 'Seleziona lingua',
   },
 };
 

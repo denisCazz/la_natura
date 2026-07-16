@@ -1,4 +1,4 @@
-﻿export type Locale = 'it' | 'en' | 'fr';
+export type Locale = 'it' | 'en' | 'fr';
 
 export type Dictionary = {
   meta: { title: string; description: string };
@@ -27,5 +27,5 @@ export type Dictionary = {
     follow: string;
   };
   whatsapp: { prefill: string };
-  a11y: { skip: string; stickyWhatsApp: string };
+  a11y: { skip: string; stickyWhatsApp: string; languageNav: string };
 };
