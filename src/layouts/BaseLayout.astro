@@ -1,0 +1,53 @@
+﻿---
+import '../styles/global.css';
+import { locales, localePath, SITE, type Dictionary, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  t: Dictionary;
+}
+
+const { locale, t } = Astro.props;
+const canonical = new URL(localePath(locale), Astro.site);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: SITE.name,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Strada Santa Scolastica 2',
+    addressLocality: 'Savigliano',
+    postalCode: '12038',
+    addressRegion: 'CN',
+    addressCountry: 'IT',
+  },
+  telephone: SITE.phoneTel,
+  servesCuisine: 'Piedmontese',
+  priceRange: SITE.priceRange,
+  url: canonical.href,
+};
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="canonical" href={canonical.href} />
+    {locales.map((l) => (
+      <link rel="alternate" hreflang={l} href={new URL(localePath(l), Astro.site).href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:image" content={new URL(SITE.ogImage, Astro.site).href} />
+    <meta property="og:locale" content={locale === 'it' ? 'it_IT' : locale === 'en' ? 'en_GB' : 'fr_FR'} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.a11y.skip}</a>
+    <slot />
+  </body>
+</html>

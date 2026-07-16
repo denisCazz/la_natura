@@ -1,9 +1,10 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getDictionary } from '../i18n';
+
+const locale = 'it' as const;
+const t = getDictionary(locale);
 ---
-import '../styles/global.css';
----
-<html lang="it">
-  <body>
-    <p class="brand">La Natura</p>
-    <a class="btn btn-primary" href="tel:+393291867492">Chiama</a>
-  </body>
-</html>
+<BaseLayout locale={locale} t={t}>
+  <main id="main"><p>{t.hero.headline}</p></main>
+</BaseLayout>
