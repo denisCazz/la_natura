@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import PrivacyPage from '../../../components/PrivacyPage.astro';
+import Footer from '../../../components/Footer.astro';
+import WhatsAppSticky from '../../../components/WhatsAppSticky.astro';
+import { getDictionary } from '../../../i18n';
+
+const locale = 'en' as const;
+const t = getDictionary(locale);
+---
+<BaseLayout
+  locale={locale}
+  t={t}
+  pageSlug="privacy"
+  title={t.privacy.metaTitle}
+  description={t.privacy.metaDescription}
+>
+  <Header locale={locale} t={t} />
+  <main id="main">
+    <PrivacyPage t={t} />
+  </main>
+  <Footer locale={locale} t={t} />
+  <WhatsAppSticky t={t} />
+</BaseLayout>

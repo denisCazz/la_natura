@@ -92,7 +92,7 @@ If the CLI refuses a non-empty directory, create files manually:
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://agriturismolanatura.it',
+  site: 'https://lanaturasavigliano.it',
   output: 'static',
 });
 ```

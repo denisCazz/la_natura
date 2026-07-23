@@ -1,0 +1,173 @@
+---
+import { SITE, type Dictionary } from '../i18n';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const { legal } = SITE;
+const sede = `${legal.sede.indirizzo}, ${legal.sede.cap} ${legal.sede.comune} (${legal.sede.provincia}), ${legal.sede.paese}`;
+const rappresentante = `${legal.rappresentante.nome} ${legal.rappresentante.cognome} — ${legal.rappresentante.ruolo}`;
+---
+<section class="section privacy-page" aria-labelledby="privacy-title">
+  <div class="section__inner privacy">
+    <header class="privacy__header">
+      <span class="section__eyebrow">{t.footer.privacy}</span>
+      <h1 id="privacy-title" class="privacy__title">{t.privacy.title}</h1>
+      <p class="privacy__intro">{t.privacy.intro}</p>
+    </header>
+
+    <div class="privacy__content">
+      <section class="privacy__block" aria-labelledby="privacy-controller">
+        <h2 id="privacy-controller">{t.privacy.controllerTitle}</h2>
+        <p>{t.privacy.controllerBody}</p>
+        <dl class="privacy__dl">
+          <div>
+            <dt>{t.privacy.labels.legalName}</dt>
+            <dd>{legal.denominazione}</dd>
+          </div>
+          <div>
+            <dt>{t.privacy.labels.legalForm}</dt>
+            <dd>{legal.formaGiuridica}</dd>
+          </div>
+          <div>
+            <dt>{t.privacy.labels.registeredOffice}</dt>
+            <dd>{sede}</dd>
+          </div>
+          <div>
+            <dt>{t.privacy.labels.vat}</dt>
+            <dd>{legal.partitaIva}</dd>
+          </div>
+          <div>
+            <dt>{t.privacy.labels.taxCode}</dt>
+            <dd>{legal.codiceFiscale}</dd>
+          </div>
+          <div>
+            <dt>{t.privacy.labels.rea}</dt>
+            <dd>{legal.rea.provincia} {legal.rea.numero}</dd>
+          </div>
+          <div>
+            <dt>{t.privacy.labels.pec}</dt>
+            <dd>
+              <a href={`mailto:${legal.pec}`}>{legal.pec}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>{t.privacy.labels.representative}</dt>
+            <dd>{rappresentante}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="privacy__block" aria-labelledby="privacy-data">
+        <h2 id="privacy-data">{t.privacy.dataTitle}</h2>
+        <p>{t.privacy.dataBody}</p>
+      </section>
+
+      <section class="privacy__block" aria-labelledby="privacy-cookies">
+        <h2 id="privacy-cookies">{t.privacy.cookiesTitle}</h2>
+        <p>{t.privacy.cookiesBody}</p>
+      </section>
+
+      <section class="privacy__block" aria-labelledby="privacy-rights">
+        <h2 id="privacy-rights">{t.privacy.rightsTitle}</h2>
+        <p>{t.privacy.rightsBody}</p>
+      </section>
+
+      <section class="privacy__block" aria-labelledby="privacy-contact">
+        <h2 id="privacy-contact">{t.privacy.contactTitle}</h2>
+        <p>{t.privacy.contactBody}</p>
+        <ul class="privacy__contacts">
+          <li>
+            <a href={`tel:${SITE.phoneTel}`}>{SITE.phoneDisplay}</a>
+          </li>
+          <li>
+            <a href={`mailto:${legal.pec}`}>{legal.pec}</a>
+          </li>
+        </ul>
+      </section>
+
+      <p class="privacy__updated">{t.privacy.updated}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .privacy {
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .privacy__header {
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 4vw, 2.75rem);
+  }
+
+  .privacy__title {
+    margin: 0.35rem 0 0.85rem;
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+  }
+
+  .privacy__intro {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--color-stone);
+    line-height: 1.65;
+  }
+
+  .privacy__content {
+    max-width: 42rem;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .privacy__block h2 {
+    margin: 0 0 0.65rem;
+    font-size: 1.25rem;
+  }
+
+  .privacy__block p {
+    margin: 0;
+    color: rgba(26, 42, 34, 0.82);
+  }
+
+  .privacy__dl {
+    margin: 1.15rem 0 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .privacy__dl div {
+    display: grid;
+    gap: 0.15rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .privacy__dl dt {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+  }
+
+  .privacy__dl dd {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  .privacy__contacts {
+    margin: 0.85rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .privacy__updated {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    color: var(--color-stone);
+  }
+</style>

@@ -26,26 +26,32 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.85rem 1.25rem;
-    background: var(--color-terracotta);
+    padding: 0.9rem 1.2rem;
+    background: var(--color-wine);
     color: #fff;
-    font: 600 0.9rem/1 var(--font-body);
+    font: 600 0.88rem/1 var(--font-body);
+    letter-spacing: 0.02em;
     text-decoration: none;
-    border-radius: 999px;
-    box-shadow: 0 4px 16px rgba(44, 58, 46, 0.25);
-    transition: background 0.2s ease, transform 0.2s ease;
+    border-radius: 3px;
+    box-shadow: 0 8px 24px rgba(26, 42, 34, 0.28);
+    transition: background 0.25s var(--ease-out), transform 0.25s var(--ease-out);
   }
 
   .wa-sticky:hover {
-    background: #8f4e34;
+    background: var(--color-wine-deep);
     transform: translateY(-2px);
   }
 
   @media (min-width: 768px) {
     .wa-sticky {
-      padding: 0.75rem 1.1rem;
+      padding: 0.8rem 1.1rem;
       font-size: 0.85rem;
-      opacity: 0.92;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wa-sticky:hover {
+      transform: none;
     }
   }
 </style>

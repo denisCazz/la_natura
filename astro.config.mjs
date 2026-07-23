@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://agriturismolanatura.it',
+  site: 'https://lanaturasavigliano.it',
   output: 'static',
 });

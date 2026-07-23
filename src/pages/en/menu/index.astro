@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import MenuPage from '../../../components/MenuPage.astro';
+import Footer from '../../../components/Footer.astro';
+import WhatsAppSticky from '../../../components/WhatsAppSticky.astro';
+import { getDictionary } from '../../../i18n';
+
+const locale = 'en' as const;
+const t = getDictionary(locale);
+---
+<BaseLayout
+  locale={locale}
+  t={t}
+  pageSlug="menu"
+  title={t.menu.metaTitle}
+  description={t.menu.metaDescription}
+>
+  <Header locale={locale} t={t} />
+  <main id="main">
+    <MenuPage t={t} locale={locale} />
+  </main>
+  <Footer locale={locale} t={t} />
+  <WhatsAppSticky t={t} />
+</BaseLayout>

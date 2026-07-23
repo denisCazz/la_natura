@@ -1,0 +1,99 @@
+---
+import { type Dictionary } from '../i18n';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+---
+<section class="section reveal lunch" id="pranzo" aria-labelledby="lunch-title">
+  <div class="section__inner">
+    <article class="lunch__card">
+      <div class="lunch__head">
+        <h2 id="lunch-title" class="lunch__title">{t.menu.lunchTitle}</h2>
+        <p class="lunch__price">{t.menu.lunchPrice}</p>
+      </div>
+      <p class="lunch__days">{t.menu.lunchDays}</p>
+      <ul class="lunch__items">
+        {t.menu.lunchItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <p class="lunch__note">{t.menu.coverNote}</p>
+    </article>
+  </div>
+</section>
+
+<style>
+  .lunch__card {
+    max-width: 34rem;
+    padding: clamp(1.75rem, 4vw, 2.25rem) 0;
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .lunch__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .lunch__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 1.85rem);
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  .lunch__price {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.5vw, 2.15rem);
+    font-weight: 700;
+    color: var(--color-wine);
+    white-space: nowrap;
+  }
+
+  .lunch__days {
+    margin: 0 0 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-leaf);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .lunch__items {
+    margin: 0 0 1.75rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .lunch__items li {
+    position: relative;
+    padding-left: 1.2rem;
+    line-height: 1.5;
+    font-size: 1.05rem;
+  }
+
+  .lunch__items li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--color-leaf);
+  }
+
+  .lunch__note {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+</style>

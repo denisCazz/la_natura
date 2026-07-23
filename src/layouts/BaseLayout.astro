@@ -1,30 +1,144 @@
 ---
 import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
 import { locales, localePath, SITE, type Dictionary, type Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
   t: Dictionary;
+  /** Page slug without locale, e.g. '' | 'menu' */
+  pageSlug?: string;
+  title?: string;
+  description?: string;
 }
 
-const { locale, t } = Astro.props;
-const canonical = new URL(localePath(locale), Astro.site);
-const jsonLd = {
-  '@context': 'https://schema.org',
+const { locale, t, pageSlug = '', title, description } = Astro.props;
+const pageTitle = title ?? t.meta.title;
+const pageDescription = description ?? t.meta.description;
+const siteOrigin = Astro.site!;
+const canonical = new URL(localePath(locale, pageSlug), siteOrigin);
+const homeUrl = new URL(localePath(locale), siteOrigin).href;
+const menuUrl = new URL(localePath(locale, 'menu'), siteOrigin).href;
+const ogImageUrl = new URL(SITE.ogImage, siteOrigin).href;
+const logoUrl = new URL(SITE.logo, siteOrigin).href;
+const ogLocale = locale === 'it' ? 'it_IT' : locale === 'en' ? 'en_GB' : 'fr_FR';
+const alternateOgLocales = (['it_IT', 'en_GB', 'fr_FR'] as const).filter((l) => l !== ogLocale);
+
+const sameAs = [SITE.instagram, SITE.facebook].filter(Boolean);
+
+const restaurantId = `${siteOrigin.origin}/#restaurant`;
+const websiteId = `${siteOrigin.origin}/#website`;
+
+const openingHoursSpecification = [
+  {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '12:00',
+    closes: '15:00',
+  },
+  {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '19:30',
+    closes: '00:00',
+  },
+  {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: 'Tuesday',
+    opens: '12:00',
+    closes: '15:00',
+  },
+];
+
+const restaurantLd = {
   '@type': 'Restaurant',
+  '@id': restaurantId,
   name: SITE.name,
+  alternateName: SITE.shortName,
+  description: pageDescription,
+  image: [ogImageUrl, logoUrl],
+  logo: logoUrl,
+  url: homeUrl,
+  telephone: SITE.phoneTel,
+  priceRange: SITE.priceRange,
+  servesCuisine: [...SITE.cuisine],
+  acceptsReservations: true,
+  taxID: SITE.legal.partitaIva,
+  vatID: SITE.legal.partitaIva,
+  legalName: SITE.legal.denominazione,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Strada Santa Scolastica 2',
-    addressLocality: 'Savigliano',
-    postalCode: '12038',
-    addressRegion: 'CN',
-    addressCountry: 'IT',
+    streetAddress: SITE.streetAddress,
+    addressLocality: SITE.addressLocality,
+    postalCode: SITE.postalCode,
+    addressRegion: SITE.addressRegion,
+    addressCountry: SITE.addressCountry,
   },
-  telephone: SITE.phoneTel,
-  servesCuisine: 'Piedmontese',
-  priceRange: SITE.priceRange,
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: SITE.geo.latitude,
+    longitude: SITE.geo.longitude,
+  },
+  hasMap: SITE.mapsUrl,
+  openingHoursSpecification,
+  hasMenu: menuUrl,
+  menu: menuUrl,
+  sameAs,
+  areaServed: {
+    '@type': 'City',
+    name: 'Savigliano',
+  },
+};
+
+const websiteLd = {
+  '@type': 'WebSite',
+  '@id': websiteId,
+  name: SITE.name,
+  url: siteOrigin.origin + '/',
+  inLanguage: ['it', 'en', 'fr'],
+  publisher: { '@id': restaurantId },
+  about: { '@id': restaurantId },
+};
+
+const webpageLd = {
+  '@type': 'WebPage',
+  '@id': canonical.href,
   url: canonical.href,
+  name: pageTitle,
+  description: pageDescription,
+  inLanguage: locale,
+  isPartOf: { '@id': websiteId },
+  about: { '@id': restaurantId },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: ogImageUrl,
+  },
+};
+
+const breadcrumbLd =
+  pageSlug === 'menu'
+    ? {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: SITE.name,
+            item: homeUrl,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: t.nav.menu,
+            item: menuUrl,
+          },
+        ],
+      }
+    : null;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [restaurantLd, websiteLd, webpageLd, ...(breadcrumbLd ? [breadcrumbLd] : [])],
 };
 ---
 <!doctype html>
@@ -32,22 +146,67 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{t.meta.title}</title>
-    <meta name="description" content={t.meta.description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="author" content={SITE.name} />
+    <meta name="theme-color" content={SITE.themeColor} />
+    <meta name="color-scheme" content="light" />
+    <meta name="geo.region" content="IT-CN" />
+    <meta name="geo.placename" content="Savigliano" />
+    <meta name="geo.position" content={`${SITE.geo.latitude};${SITE.geo.longitude}`} />
+    <meta name="ICBM" content={`${SITE.geo.latitude}, ${SITE.geo.longitude}`} />
     <link rel="canonical" href={canonical.href} />
     {locales.map((l) => (
-      <link rel="alternate" hreflang={l} href={new URL(localePath(l), Astro.site).href} />
+      <link
+        rel="alternate"
+        hreflang={l}
+        href={new URL(localePath(l, pageSlug), siteOrigin).href}
+      />
     ))}
-    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(localePath('it', pageSlug), siteOrigin).href}
+    />
+
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content={SITE.shortName} />
+    <meta name="application-name" content={SITE.shortName} />
+
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={t.meta.title} />
-    <meta property="og:description" content={t.meta.description} />
-    <meta property="og:image" content={new URL(SITE.ogImage, Astro.site).href} />
-    <meta property="og:locale" content={locale === 'it' ? 'it_IT' : locale === 'en' ? 'en_GB' : 'fr_FR'} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={SITE.name} />
+    <meta property="og:locale" content={ogLocale} />
+    {alternateOgLocales.map((l) => (
+      <meta property="og:locale:alternate" content={l} />
+    ))}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script
+      defer
+      src="https://umami.bitora.it/script.js"
+      data-website-id="c71f00ea-ec5c-4f57-96aa-13be98c0ec70"
+      is:inline
+    ></script>
   </head>
   <body>
     <a class="skip-link" href="#main">{t.a11y.skip}</a>
     <slot />
+    <CookieConsent locale={locale} t={t} />
   </body>
 </html>

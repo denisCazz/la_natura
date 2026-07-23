@@ -6,7 +6,7 @@ interface Props {
 }
 const { t } = Astro.props;
 ---
-<section class="section reveal" aria-labelledby="luogo-title">
+<section class="section section--mist reveal" id="luogo" aria-labelledby="luogo-title">
   <div class="section__inner luogo">
     <figure class="luogo__media">
       <img
@@ -18,6 +18,7 @@ const { t } = Astro.props;
       />
     </figure>
     <div class="luogo__text">
+      <span class="section__eyebrow">{t.nav.luogo}</span>
       <h2 id="luogo-title" class="luogo__title">{t.luogo.title}</h2>
       <p class="luogo__body">{t.luogo.body}</p>
     </div>
@@ -27,37 +28,58 @@ const { t } = Astro.props;
 <style>
   .luogo {
     display: grid;
-    gap: clamp(2rem, 5vw, 3.5rem);
+    gap: clamp(2.25rem, 6vw, 4.5rem);
     align-items: center;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 800px) {
     .luogo {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+      gap: clamp(3rem, 6vw, 5rem);
+    }
+
+    .luogo__text {
+      padding-left: 0.5rem;
     }
   }
 
   .luogo__title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    margin: 0 0 1rem;
+    font-size: clamp(2rem, 4.5vw, 3.15rem);
+    margin: 0 0 1.15rem;
     color: var(--color-ink);
   }
 
   .luogo__body {
     margin: 0;
-    font-size: clamp(1rem, 2vw, 1.125rem);
-    line-height: 1.65;
-    max-width: 42ch;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.7;
+    max-width: 38ch;
+    color: color-mix(in srgb, var(--color-ink) 88%, transparent);
   }
 
   .luogo__media {
     margin: 0;
+    position: relative;
+  }
+
+  .luogo__media::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 35%;
+    background: linear-gradient(to top, rgba(26, 42, 34, 0.18), transparent);
+    pointer-events: none;
   }
 
   .luogo__media img {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 5 / 4;
     object-fit: cover;
-    border-radius: 2px;
+  }
+
+  @media (max-width: 799px) {
+    .luogo__media img {
+      aspect-ratio: 4 / 3;
+    }
   }
 </style>

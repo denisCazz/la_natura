@@ -6,35 +6,35 @@ interface Props {
 }
 const { t } = Astro.props;
 ---
-<section class="section section--cream reveal" aria-labelledby="info-title">
+<section id="info" class="section reveal" aria-labelledby="info-title">
   <div class="section__inner info">
-    <h2 id="info-title" class="info__title">{t.info.title}</h2>
+    <header class="info__intro">
+      <span class="section__eyebrow">{t.nav.info}</span>
+      <h2 id="info-title" class="info__title">{t.info.title}</h2>
+    </header>
 
-    <div class="info__layout">
-      <figure class="info__hours-card">
-        <img
-          class="info__hours-img"
-          src="/images/hero_info.png"
-          alt={t.info.hoursImageAlt}
-          width="720"
-          height="900"
-          loading="lazy"
-        />
-        <figcaption class="info__hours-caption">
-          <span class="info__hours-label">{t.info.hoursLabel}</span>
-          {t.info.hours}
-        </figcaption>
-      </figure>
-
-      <div class="info__details">
-        <dl class="info__list">
-          <div class="info__row">
-            <dt>{t.info.priceLabel}</dt>
-            <dd>{t.info.price}</dd>
-          </div>
-          <div class="info__row">
-            <dt>{t.info.addressLabel}</dt>
-            <dd>
+    <div class="info__table-wrap">
+      <table class="info__table">
+        <tbody>
+          <tr>
+            <th scope="row">{t.info.hoursLabel}</th>
+            <td>{t.info.hours}</td>
+          </tr>
+          <tr>
+            <th scope="row">{t.info.bookingLabel}</th>
+            <td>{t.info.booking}</td>
+          </tr>
+          <tr>
+            <th scope="row">{t.info.coverLabel}</th>
+            <td>{t.info.cover}</td>
+          </tr>
+          <tr>
+            <th scope="row">{t.info.priceLabel}</th>
+            <td>{t.info.price}</td>
+          </tr>
+          <tr>
+            <th scope="row">{t.info.addressLabel}</th>
+            <td>
               <address class="info__address">{SITE.address}</address>
               <a
                 class="info__link"
@@ -44,126 +44,106 @@ const { t } = Astro.props;
               >
                 {t.info.mapCta}
               </a>
-            </dd>
-          </div>
-          <div class="info__row">
-            <dt>{t.info.phoneLabel}</dt>
-            <dd>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">{t.info.phoneLabel}</th>
+            <td>
               <a class="info__link" href={`tel:${SITE.phoneTel}`}>{SITE.phoneDisplay}</a>
-            </dd>
-          </div>
-        </dl>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-        <div class="info__map-block">
-          <h3 class="info__map-title">{t.info.mapTitle}</h3>
-          <div class="info__map">
-            <iframe
-              title={t.info.mapTitle}
-              src={SITE.mapsEmbedUrl}
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
+    <div class="info__map-block">
+      <h3 class="info__map-title">{t.info.mapTitle}</h3>
+      <div class="info__map">
+        <iframe
+          title={t.info.mapTitle}
+          src={SITE.mapsEmbedUrl}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  .info__intro {
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+    max-width: 36rem;
+  }
+
   .info__title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    margin: 0 0 2rem;
+    font-size: clamp(2rem, 4.5vw, 3.15rem);
+    margin: 0;
     color: var(--color-ink);
   }
 
-  .info__layout {
-    display: grid;
-    gap: 2.5rem;
-    align-items: start;
+  .info__table-wrap {
+    margin-bottom: clamp(2rem, 4vw, 2.75rem);
+    overflow-x: auto;
   }
 
-  @media (min-width: 840px) {
-    .info__layout {
-      grid-template-columns: minmax(14rem, 22rem) 1fr;
-      gap: 3rem;
-    }
-  }
-
-  .info__hours-card {
-    margin: 0;
-  }
-
-  .info__hours-img {
+  .info__table {
     width: 100%;
-    height: auto;
-    border-radius: 2px;
-    box-shadow: 0 12px 36px rgba(44, 58, 46, 0.14);
+    max-width: 40rem;
+    border-collapse: collapse;
+    table-layout: fixed;
   }
 
-  .info__hours-caption {
-    margin-top: 0.85rem;
-    font-size: 0.95rem;
+  .info__table th,
+  .info__table td {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--color-line);
+    vertical-align: top;
+    text-align: left;
+    font-size: 1rem;
     line-height: 1.5;
+  }
+
+  .info__table tr:first-child th,
+  .info__table tr:first-child td {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .info__table th {
+    width: 10.5rem;
+    padding-right: 1.25rem;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--color-leaf);
+    white-space: nowrap;
+  }
+
+  .info__table td {
     color: var(--color-ink);
-  }
-
-  .info__hours-label {
-    display: block;
-    font-weight: 600;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-leaf);
-    margin-bottom: 0.25rem;
-  }
-
-  .info__list {
-    margin: 0 0 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .info__row {
-    display: grid;
-    grid-template-columns: minmax(6rem, 8rem) 1fr;
-    gap: 1rem;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid rgba(44, 58, 46, 0.12);
-  }
-
-  .info__row:first-of-type {
-    border-top: 1px solid rgba(44, 58, 46, 0.12);
-  }
-
-  .info__row dt {
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-leaf);
-    margin: 0;
-  }
-
-  .info__row dd {
-    margin: 0;
-    line-height: 1.55;
+    white-space: pre-line;
   }
 
   .info__address {
     font-style: normal;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.3rem;
   }
 
   .info__link {
     font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-leaf) 40%, transparent);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .info__link:hover {
+    color: var(--color-ink);
+    border-bottom-color: var(--color-ink);
   }
 
   .info__map-title {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     margin: 0 0 0.85rem;
     color: var(--color-ink);
   }
@@ -171,12 +151,11 @@ const { t } = Astro.props;
   .info__map {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 10;
-    min-height: 16rem;
+    aspect-ratio: 21 / 9;
+    min-height: 12rem;
     overflow: hidden;
-    border-radius: 2px;
-    border: 1px solid rgba(44, 58, 46, 0.12);
-    background: rgba(44, 58, 46, 0.06);
+    border: 1px solid var(--color-line);
+    background: var(--color-mist);
   }
 
   .info__map iframe {
@@ -185,12 +164,14 @@ const { t } = Astro.props;
     width: 100%;
     height: 100%;
     border: 0;
+    filter: grayscale(0.25) contrast(1.02);
   }
 
-  @media (max-width: 480px) {
-    .info__row {
-      grid-template-columns: 1fr;
-      gap: 0.35rem;
+  @media (max-width: 520px) {
+    .info__table th {
+      width: 7.5rem;
+      padding-right: 0.85rem;
+      white-space: normal;
     }
 
     .info__map {
