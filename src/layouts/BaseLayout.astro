@@ -1,6 +1,9 @@
 ---
+import { getImage } from 'astro:assets';
+import outsideImage from '../assets/images/outside.png';
 import '../styles/global.css';
 import CookieConsent from '../components/CookieConsent.astro';
+import { BUSINESS_HOURS } from '../data/business';
 import { locales, localePath, SITE, type Dictionary, type Locale } from '../i18n';
 
 interface Props {
@@ -19,7 +22,15 @@ const siteOrigin = Astro.site!;
 const canonical = new URL(localePath(locale, pageSlug), siteOrigin);
 const homeUrl = new URL(localePath(locale), siteOrigin).href;
 const menuUrl = new URL(localePath(locale, 'menu'), siteOrigin).href;
-const ogImageUrl = new URL(SITE.ogImage, siteOrigin).href;
+const ogImage = await getImage({
+  src: outsideImage,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpeg',
+  quality: 82,
+});
+const ogImageUrl = new URL(ogImage.src, siteOrigin).href;
 const logoUrl = new URL(SITE.logo, siteOrigin).href;
 const ogLocale = locale === 'it' ? 'it_IT' : locale === 'en' ? 'en_GB' : 'fr_FR';
 const alternateOgLocales = (['it_IT', 'en_GB', 'fr_FR'] as const).filter((l) => l !== ogLocale);
@@ -29,24 +40,29 @@ const sameAs = [SITE.instagram, SITE.facebook].filter(Boolean);
 const restaurantId = `${siteOrigin.origin}/#restaurant`;
 const websiteId = `${siteOrigin.origin}/#website`;
 
+const daysOfWeek = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+] as const;
+const dinnerDays = daysOfWeek.filter((day) => day !== BUSINESS_HOURS.dinnerClosedDay);
+
 const openingHoursSpecification = [
   {
     '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    opens: '12:00',
-    closes: '15:00',
+    dayOfWeek: daysOfWeek,
+    opens: BUSINESS_HOURS.lunch.opens,
+    closes: BUSINESS_HOURS.lunch.closes,
   },
   {
     '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    opens: '19:30',
-    closes: '00:00',
-  },
-  {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: 'Tuesday',
-    opens: '12:00',
-    closes: '15:00',
+    dayOfWeek: dinnerDays,
+    opens: BUSINESS_HOURS.dinner.opens,
+    closes: BUSINESS_HOURS.dinner.closesSchema,
   },
 ];
 
@@ -186,6 +202,9 @@ const jsonLd = {
     <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:alt" content={SITE.name} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:locale" content={ogLocale} />
     {alternateOgLocales.map((l) => (
       <meta property="og:locale:alternate" content={l} />

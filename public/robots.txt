@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lanaturasavigliano.it/sitemap.xml
+Sitemap: https://lanaturasavigliano.it/sitemap-index.xml

@@ -1,4 +1,6 @@
-﻿---
+---
+import { Picture } from 'astro:assets';
+import cucinaImage from '../assets/images/cucina.jpg';
 import { type Dictionary } from '../i18n';
 
 interface Props {
@@ -14,12 +16,14 @@ const { t } = Astro.props;
       <p class="cucina__body">{t.cucina.body}</p>
     </div>
     <figure class="cucina__media">
-      <img
-        src="/images/cucina.jpg"
+      <Picture
+        src={cucinaImage}
+        formats={['avif', 'webp']}
+        widths={[480, 720, 960, 1200]}
+        sizes="(min-width: 800px) 50vw, 100vw"
         alt={t.cucina.imageAlt}
         loading="lazy"
-        width="800"
-        height="600"
+        decoding="async"
       />
     </figure>
   </div>
@@ -28,14 +32,14 @@ const { t } = Astro.props;
 <style>
   .cucina {
     display: grid;
-    gap: clamp(2.25rem, 6vw, 4.5rem);
+    gap: var(--section-gap);
     align-items: center;
   }
 
   @media (min-width: 800px) {
     .cucina {
       grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
-      gap: clamp(3rem, 6vw, 5rem);
+      gap: var(--section-gap);
     }
 
     .cucina__text {
@@ -53,7 +57,7 @@ const { t } = Astro.props;
     margin: 0;
     font-size: clamp(1.05rem, 2vw, 1.2rem);
     line-height: 1.7;
-    max-width: 38ch;
+    max-width: var(--content-measure);
     color: color-mix(in srgb, var(--color-ink) 88%, transparent);
   }
 
@@ -70,7 +74,7 @@ const { t } = Astro.props;
     z-index: -1;
   }
 
-  .cucina__media img {
+  .cucina__media :global(img) {
     width: 100%;
     aspect-ratio: 5 / 4;
     object-fit: cover;
@@ -79,10 +83,6 @@ const { t } = Astro.props;
   @media (max-width: 799px) {
     .cucina__media::before {
       display: none;
-    }
-
-    .cucina__media img {
-      aspect-ratio: 4 / 3;
     }
   }
 </style>

@@ -1,4 +1,4 @@
-﻿---
+---
 import LogoMark from './LogoMark.astro';
 import {
   locales,
@@ -20,6 +20,11 @@ const home = localePath(locale);
 const menuHref = localePath(locale, 'menu');
 const pathname = Astro.url.pathname;
 const isMenuPage = pathname.includes('/menu');
+const localeOptions = {
+  it: { flag: '🇮🇹', code: 'IT', name: 'Italiano' },
+  en: { flag: '🇬🇧', code: 'EN', name: 'English' },
+  fr: { flag: '🇫🇷', code: 'FR', name: 'Français' },
+} as const;
 
 const links = [
   { href: home, label: t.nav.home, current: !isMenuPage },
@@ -50,13 +55,20 @@ const links = [
           <a
             href={switchLocalePath(pathname, l)}
             hreflang={l}
+            lang={l}
+            aria-label={localeOptions[l].name}
             aria-current={l === locale ? 'page' : undefined}
           >
-            {l.toUpperCase()}
+            <span aria-hidden="true">{localeOptions[l].flag}</span>
+            <span>{localeOptions[l].code}</span>
+            <span class="sr-only">{localeOptions[l].name}</span>
           </a>
         ))}
       </nav>
-      <a class="nav__cta" href={`tel:${SITE.phoneTel}`}>{t.nav.call}</a>
+      <a class="nav__cta" href={`tel:${SITE.phoneTel}`} aria-label={t.nav.call}>
+        <span aria-hidden="true">☎</span>
+        <span class="nav__cta-label">{t.nav.call}</span>
+      </a>
       <button
         class="nav__toggle"
         type="button"
@@ -85,9 +97,13 @@ const links = [
           <a
             href={switchLocalePath(pathname, l)}
             hreflang={l}
+            lang={l}
+            aria-label={localeOptions[l].name}
             aria-current={l === locale ? 'page' : undefined}
           >
-            {l.toUpperCase()}
+            <span aria-hidden="true">{localeOptions[l].flag}</span>
+            <span>{localeOptions[l].code}</span>
+            <span class="sr-only">{localeOptions[l].name}</span>
           </a>
         ))}
       </nav>
@@ -136,7 +152,24 @@ const links = [
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        burger.focus();
+      }
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (
+        burger.getAttribute('aria-expanded') === 'true' &&
+        event.target instanceof Node &&
+        !header?.contains(event.target)
+      ) {
+        setOpen(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 900) setOpen(false);
     });
   }
 </script>
@@ -251,6 +284,9 @@ const links = [
   }
 
   .nav__langs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     color: var(--nav-muted);
     text-decoration: none;
     font-size: 0.72rem;
@@ -271,7 +307,9 @@ const links = [
   }
 
   .nav__cta {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     color: var(--nav-fg);
     text-decoration: none;
     font-size: 0.85rem;
@@ -378,13 +416,35 @@ const links = [
     }
   }
 
+  @media (max-width: 340px) {
+    .nav__bar {
+      gap: 0.35rem;
+    }
+
+    .nav__end {
+      gap: 0.25rem;
+    }
+
+    .nav__cta {
+      padding-inline: 0.6rem;
+    }
+
+    .nav__cta-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+  }
+
   @media (min-width: 900px) {
     .nav__links {
       display: flex;
     }
 
-    .nav__langs,
-    .nav__cta {
+    .nav__langs {
       display: flex;
     }
 

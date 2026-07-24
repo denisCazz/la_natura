@@ -1,4 +1,4 @@
-﻿import it from './it';
+import it from './it';
 import en from './en';
 import fr from './fr';
 import type { Dictionary, Locale } from './types';
@@ -53,7 +53,6 @@ export const SITE = {
   cuisine: ['Piedmontese', 'Italian', 'Farm-to-table'],
   logo: '/favicon/android-chrome-512x512.png',
   icon: '/favicon/android-chrome-192x192.png',
-  ogImage: '/images/outside.png',
   themeColor: '#3f5e4c',
   creditUrl: 'https://www.bitora.it/',
   legal: {

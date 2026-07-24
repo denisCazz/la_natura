@@ -1,4 +1,5 @@
-﻿import type { Dictionary } from './types';
+import type { Dictionary } from './types';
+import { BUSINESS_HOURS } from '../data/business';
 
 const en: Dictionary = {
   meta: {
@@ -71,8 +72,7 @@ const en: Dictionary = {
   info: {
     title: 'Info and bookings',
     hoursLabel: 'Hours',
-    hours:
-      'Lunch 12:00\u201315:00\nDinner 19:30\u201324:00\nClosed Tuesday evening',
+    hours: `Lunch ${BUSINESS_HOURS.lunch.opens}\u2013${BUSINESS_HOURS.lunch.closes}\nDinner ${BUSINESS_HOURS.dinner.opens}\u2013${BUSINESS_HOURS.dinner.closesDisplay}\nClosed Tuesday evening`,
     bookingLabel: 'Bookings',
     booking: 'For parties of 5 or more',
     coverLabel: 'Water & cover',

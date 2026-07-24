@@ -1,4 +1,7 @@
-﻿---
+---
+import { Image } from 'astro:assets';
+import logoImage from '../assets/images/logo.png';
+
 interface Props {
   class?: string;
   size?: 'sm' | 'md' | 'lg';
@@ -8,7 +11,15 @@ interface Props {
 const { class: className = '', size = 'sm', alt = 'Agriturismo La Natura' } = Astro.props;
 ---
 <span class:list={['logo-mark', `logo-mark--${size}`, className]}>
-  <img class="logo-mark__img" src="/images/logo.png" alt={alt} width="512" height="512" />
+  <Image
+    class="logo-mark__img"
+    src={logoImage}
+    widths={[42, 56, 144, 288]}
+    sizes={size === 'lg' ? '(max-width: 400px) 38vw, 9rem' : size === 'md' ? '3.5rem' : '2.6rem'}
+    alt={alt}
+    loading="eager"
+    decoding="async"
+  />
 </span>
 
 <style>
@@ -40,7 +51,7 @@ const { class: className = '', size = 'sm', alt = 'Agriturismo La Natura' } = As
     box-shadow: 0 2px 0 rgba(255, 255, 255, 0.2), 0 10px 32px rgba(14, 24, 18, 0.35);
   }
 
-  .logo-mark__img {
+  .logo-mark :global(.logo-mark__img) {
     width: 100% !important;
     height: 100% !important;
     max-width: none !important;
