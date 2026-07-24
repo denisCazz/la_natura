@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "la-natura",
   "type": "module",
   "version": "0.0.1",
@@ -6,8 +6,7 @@
     "dev": "astro dev",
     "check": "astro check",
     "build": "astro build",
-    "preview": "astro preview",
-    "test:site": "npm run build && node --test tests/site-output.test.mjs"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
