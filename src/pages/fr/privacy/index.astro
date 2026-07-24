@@ -1,9 +1,8 @@
----
+﻿---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Header from '../../../components/Header.astro';
 import PrivacyPage from '../../../components/PrivacyPage.astro';
 import Footer from '../../../components/Footer.astro';
-import WhatsAppSticky from '../../../components/WhatsAppSticky.astro';
 import { getDictionary } from '../../../i18n';
 
 const locale = 'fr' as const;
@@ -21,5 +20,4 @@ const t = getDictionary(locale);
     <PrivacyPage t={t} />
   </main>
   <Footer locale={locale} t={t} />
-  <WhatsAppSticky t={t} />
 </BaseLayout>

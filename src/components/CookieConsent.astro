@@ -1,4 +1,4 @@
----
+﻿---
 import { localePath, type Dictionary, type Locale } from '../i18n';
 
 interface Props {
@@ -106,16 +106,6 @@ const privacyHref = localePath(locale, 'privacy');
   .cookie-consent__accept:focus-visible {
     outline: 2px solid #fff;
     outline-offset: 2px;
-  }
-
-  :global(body.cookie-banner-visible .wa-sticky) {
-    bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
-  }
-
-  @media (min-width: 720px) {
-    :global(body.cookie-banner-visible .wa-sticky) {
-      bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
-    }
   }
 </style>
 

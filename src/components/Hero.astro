@@ -41,16 +41,16 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100svh;
     color: #fff;
     overflow: hidden;
   }
 
   .hero__media {
-    position: relative;
+    position: absolute;
+    inset: 0;
     z-index: 0;
-    width: 100%;
-    /* outside.png = 2048×768 */
-    aspect-ratio: 2048 / 768;
   }
 
   .hero__media :global(picture),
@@ -62,24 +62,21 @@ const wa = whatsappUrl(t.whatsapp.prefill);
 
   .hero__media :global(img) {
     object-fit: cover;
-    object-position: center;
+    object-position: center 40%;
     animation: kenburns 22s ease-in-out alternate infinite;
   }
 
   .hero__veil {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
     z-index: 1;
-    aspect-ratio: 2048 / 768;
     pointer-events: none;
     background:
       linear-gradient(
         to top,
-        rgba(14, 24, 18, 0.55) 0%,
-        rgba(14, 24, 18, 0.12) 55%,
-        rgba(14, 24, 18, 0.2) 100%
+        rgba(14, 24, 18, 0.88) 0%,
+        rgba(14, 24, 18, 0.42) 42%,
+        rgba(14, 24, 18, 0.18) 100%
       );
   }
 
@@ -87,8 +84,7 @@ const wa = whatsappUrl(t.whatsapp.prefill);
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 1.75rem var(--space) 2.75rem;
-    background: linear-gradient(180deg, rgba(14, 24, 18, 0.98), #0e1812);
+    padding: calc(var(--header-h) + 1.5rem) var(--space) 2.5rem;
   }
 
   .hero__brand {
@@ -137,20 +133,11 @@ const wa = whatsappUrl(t.whatsapp.prefill);
 
   @media (min-width: 800px) {
     .hero {
-      min-height: 100svh;
       flex-direction: row;
       align-items: flex-end;
     }
 
-    .hero__media {
-      position: absolute;
-      inset: 0;
-      aspect-ratio: auto;
-    }
-
     .hero__veil {
-      inset: 0;
-      aspect-ratio: auto;
       background:
         linear-gradient(
           to top,
@@ -168,7 +155,6 @@ const wa = whatsappUrl(t.whatsapp.prefill);
       margin-right: auto;
       margin-left: max(0px, calc((100vw - var(--max)) / 2));
       padding: calc(var(--header-h) + 2.5rem) var(--space) clamp(3.25rem, 11vh, 5.5rem);
-      background: transparent;
     }
 
     .hero__media :global(img) {

@@ -6,7 +6,6 @@ import Luogo from './Luogo.astro';
 import LunchOffer from './LunchOffer.astro';
 import Info from './Info.astro';
 import Footer from './Footer.astro';
-import WhatsAppSticky from './WhatsAppSticky.astro';
 import { type Dictionary, type Locale } from '../i18n';
 
 interface Props {
@@ -24,4 +23,3 @@ const { locale, t } = Astro.props;
   <Info t={t} />
 </main>
 <Footer locale={locale} t={t} />
-<WhatsAppSticky t={t} />

@@ -1,4 +1,4 @@
-import it from './it';
+﻿import it from './it';
 import en from './en';
 import fr from './fr';
 import type { Dictionary, Locale } from './types';
@@ -48,7 +48,7 @@ export const SITE = {
   mapsEmbedUrl:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1125!2d7.6209577!3d44.6008322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cd5b32ec2198d7%3A0x2ba8180c3c7f2b19!2sAgriturismo%20La%20Natura!5e0!3m2!1sit!2sit!4v1720000000000!5m2!1sit!2sit',
   instagram: 'https://www.instagram.com/agriturismo_la_natura/',
-  facebook: '',
+  facebook: 'https://www.facebook.com/profile.php?id=61580659087229',
   priceRange: '\u20ac13\u201330',
   cuisine: ['Piedmontese', 'Italian', 'Farm-to-table'],
   logo: '/favicon/android-chrome-512x512.png',

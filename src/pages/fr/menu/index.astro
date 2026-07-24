@@ -1,10 +1,9 @@
----
+﻿---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Header from '../../../components/Header.astro';
 import MenuHero from '../../../components/MenuHero.astro';
 import MenuPage from '../../../components/MenuPage.astro';
 import Footer from '../../../components/Footer.astro';
-import WhatsAppSticky from '../../../components/WhatsAppSticky.astro';
 import { getDictionary } from '../../../i18n';
 
 const locale = 'fr' as const;
@@ -23,5 +22,4 @@ const t = getDictionary(locale);
     <MenuPage t={t} locale={locale} />
   </main>
   <Footer locale={locale} t={t} />
-  <WhatsAppSticky t={t} />
 </BaseLayout>

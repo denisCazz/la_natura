@@ -127,6 +127,21 @@ const localePaths = Object.fromEntries(
         </a>
       ))}
     </nav>
+    <div class="nav__panel-lang" role="navigation" aria-label={t.a11y.languageNav}>
+      {locales.map((l) => (
+        <a
+          class="nav__panel-lang-link"
+          href={localePaths[l]}
+          hreflang={l}
+          lang={l}
+          aria-current={l === locale ? 'page' : undefined}
+        >
+          <FlagIcon locale={l} />
+          <span class="nav__lang-code">{localeOptions[l].code}</span>
+          <span class="nav__lang-name">{localeOptions[l].name}</span>
+        </a>
+      ))}
+    </div>
     <div class="nav__panel-meta">
       <div class="nav__panel-actions">
         <a class="btn btn-primary" href={`tel:${SITE.phoneTel}`}>{t.nav.call}</a>
@@ -259,6 +274,20 @@ const localePaths = Object.fromEntries(
     opacity: 1;
   }
 
+  .nav.is-open {
+    height: 100svh;
+    background: #0e1812;
+  }
+
+  .nav.is-open::before {
+    position: fixed;
+    inset: 0;
+    height: 100svh;
+    opacity: 1;
+    background: #0e1812;
+    backdrop-filter: none;
+  }
+
   .nav__bar {
     position: relative;
     z-index: 1;
@@ -334,7 +363,7 @@ const localePaths = Object.fromEntries(
 
   .nav__lang {
     position: relative;
-    display: flex;
+    display: none;
     align-items: center;
     flex-shrink: 0;
     z-index: 5;
@@ -540,10 +569,14 @@ const localePaths = Object.fromEntries(
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 0.5rem var(--space) 1.75rem;
+    gap: 1.75rem;
+    height: calc(100svh - var(--header-h));
+    padding: 1rem var(--space) calc(1.75rem + env(safe-area-inset-bottom, 0px));
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(14, 24, 18, 0.96);
+    background: #0e1812;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav__panel[hidden] {
@@ -559,14 +592,63 @@ const localePaths = Object.fromEntries(
     color: #fff;
     text-decoration: none;
     font-family: var(--font-display);
-    font-size: 1.65rem;
+    font-size: clamp(1.75rem, 7vw, 2.35rem);
     font-weight: 500;
-    padding: 0.7rem 0;
+    padding: 0.85rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .nav__panel-links a[aria-current='page'] {
     color: var(--color-mist);
+  }
+
+  .nav__panel-lang {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .nav__panel-lang-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+
+  .nav__panel-lang-link:hover,
+  .nav__panel-lang-link:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+    outline: none;
+  }
+
+  .nav__panel-lang-link[aria-current='page'] {
+    background: rgba(232, 239, 233, 0.14);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+
+  .nav__panel-lang-link .nav__lang-code {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav__panel-lang-link .nav__lang-name {
+    margin-left: auto;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .nav__panel-meta {
+    margin-top: auto;
   }
 
   .nav__panel-actions {
@@ -610,15 +692,6 @@ const localePaths = Object.fromEntries(
       clip: rect(0, 0, 0, 0);
       white-space: nowrap;
     }
-
-    .nav__lang-trigger {
-      min-height: 2.15rem;
-      padding-inline: 0.55rem 0.6rem;
-    }
-
-    .nav__lang-list {
-      min-width: 10.5rem;
-    }
   }
 
   @media (min-width: 900px) {
@@ -634,6 +707,10 @@ const localePaths = Object.fromEntries(
 
     .nav__end {
       grid-column: 3;
+    }
+
+    .nav__lang {
+      display: flex;
     }
 
     .nav__toggle,
