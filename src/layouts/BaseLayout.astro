@@ -1,4 +1,4 @@
----
+﻿---
 import { getImage } from 'astro:assets';
 import outsideImage from '../assets/images/outside.png';
 import '../styles/global.css';
@@ -28,7 +28,7 @@ const ogImage = await getImage({
   height: 630,
   fit: 'cover',
   format: 'jpeg',
-  quality: 82,
+  quality: 100,
 });
 const ogImageUrl = new URL(ogImage.src, siteOrigin).href;
 const logoUrl = new URL(SITE.logo, siteOrigin).href;

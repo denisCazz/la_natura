@@ -1,0 +1,54 @@
+﻿---
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  class?: string;
+}
+
+const { locale, class: className = '' } = Astro.props;
+---
+
+<span class:list={['flag-icon', className]} aria-hidden="true">
+  {locale === 'it' && (
+    <svg viewBox="0 0 3 2" width="22" height="15" role="presentation" focusable="false">
+      <rect width="1" height="2" fill="#009246"></rect>
+      <rect x="1" width="1" height="2" fill="#fff"></rect>
+      <rect x="2" width="1" height="2" fill="#ce2b37"></rect>
+    </svg>
+  )}
+  {locale === 'en' && (
+    <svg viewBox="0 0 60 30" width="22" height="15" role="presentation" focusable="false">
+      <rect width="60" height="30" fill="#012169"></rect>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"></path>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"></path>
+      <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"></path>
+      <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"></path>
+    </svg>
+  )}
+  {locale === 'fr' && (
+    <svg viewBox="0 0 3 2" width="22" height="15" role="presentation" focusable="false">
+      <rect width="1" height="2" fill="#002395"></rect>
+      <rect x="1" width="1" height="2" fill="#fff"></rect>
+      <rect x="2" width="1" height="2" fill="#ed2939"></rect>
+    </svg>
+  )}
+</span>
+
+<style>
+  .flag-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  .flag-icon :global(svg) {
+    display: block;
+    width: 1.35rem;
+    height: 0.9rem;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
+  }
+</style>

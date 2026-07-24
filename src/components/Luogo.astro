@@ -1,4 +1,4 @@
----
+﻿---
 import { Picture } from 'astro:assets';
 import outsideImage from '../assets/images/outside.png';
 import { type Dictionary } from '../i18n';
@@ -8,92 +8,142 @@ interface Props {
 }
 const { t } = Astro.props;
 ---
-<section class="section section--mist reveal" id="luogo" aria-labelledby="luogo-title">
-  <div class="section__inner luogo">
-    <div class="luogo__text">
-      <span class="section__eyebrow">{t.nav.luogo}</span>
-      <h2 id="luogo-title" class="luogo__title">{t.luogo.title}</h2>
-      <p class="luogo__body">{t.luogo.body}</p>
-    </div>
-    <figure class="luogo__media">
-      <Picture
-        src={outsideImage}
-        formats={['avif', 'webp']}
-        widths={[480, 720, 960, 1200]}
-        sizes="(min-width: 800px) 50vw, 100vw"
-        alt={t.luogo.imageAlt}
-        loading="lazy"
-        decoding="async"
-      />
-    </figure>
+<section class="luogo reveal" id="luogo" aria-labelledby="luogo-title">
+  <div class="luogo__media" aria-hidden="true">
+    <Picture
+      src={outsideImage}
+      formats={['avif', 'webp']}
+      widths={[960, 1280, 1600, 2048]}
+      sizes="100vw"
+      quality={100}
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="luogo__veil"></div>
+  <div class="luogo__content">
+    <span class="luogo__eyebrow">{t.nav.luogo}</span>
+    <h2 id="luogo-title" class="luogo__title">{t.luogo.title}</h2>
+    <p class="luogo__body">{t.luogo.body}</p>
   </div>
 </section>
 
 <style>
   .luogo {
-    display: grid;
-    gap: var(--section-gap);
-    align-items: center;
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: flex-end;
+    min-height: clamp(28rem, 72vw, 38rem);
+    overflow: hidden;
+    color: #fff;
   }
 
-  @media (min-width: 800px) {
-    .luogo {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
-      gap: var(--section-gap);
-    }
+  .luogo__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
 
-    .luogo__text {
-      grid-column: 2;
-      padding-left: 0.5rem;
-    }
+  .luogo__media :global(picture),
+  .luogo__media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 
-    .luogo__media {
-      grid-column: 1;
-      grid-row: 1;
-    }
+  .luogo__media :global(img) {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .luogo__veil {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        to top,
+        rgba(14, 24, 18, 0.94) 0%,
+        rgba(14, 24, 18, 0.72) 42%,
+        rgba(14, 24, 18, 0.35) 72%,
+        rgba(14, 24, 18, 0.28) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(14, 24, 18, 0.55) 0%,
+        rgba(14, 24, 18, 0.2) 55%,
+        transparent 100%
+      );
+  }
+
+  .luogo__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: clamp(3.5rem, 10vw, 5.5rem) var(--space);
+  }
+
+  .luogo__eyebrow {
+    display: block;
+    margin: 0 0 0.85rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(232, 239, 233, 0.85);
   }
 
   .luogo__title {
     font-size: clamp(2rem, 4.5vw, 3.15rem);
     margin: 0 0 1.15rem;
-    color: var(--color-ink);
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
   }
 
   .luogo__body {
     margin: 0;
     font-size: clamp(1.05rem, 2vw, 1.2rem);
     line-height: 1.7;
-    max-width: var(--content-measure);
-    color: color-mix(in srgb, var(--color-ink) 88%, transparent);
-  }
-
-  .luogo__media {
-    margin: 0;
-    position: relative;
-  }
-
-  .luogo__media::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 35%;
-    background: linear-gradient(to top, rgba(26, 42, 34, 0.18), transparent);
-    pointer-events: none;
-  }
-
-  .luogo__media :global(img) {
-    width: 100%;
-    aspect-ratio: 5 / 4;
-    object-fit: cover;
+    max-width: 38ch;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.35);
   }
 
   @media (max-width: 799px) {
-    .luogo__text {
-      grid-row: 2;
+    .luogo {
+      min-height: clamp(26rem, 118vw, 34rem);
+      /* outside.png = 2048×768 — keep panoramic crop readable */
+      aspect-ratio: auto;
     }
 
-    .luogo__media {
-      grid-row: 1;
+    .luogo__media :global(img) {
+      object-position: center 45%;
+    }
+
+    .luogo__veil {
+      background:
+        linear-gradient(
+          to top,
+          rgba(14, 24, 18, 0.96) 0%,
+          rgba(14, 24, 18, 0.82) 48%,
+          rgba(14, 24, 18, 0.45) 78%,
+          rgba(14, 24, 18, 0.32) 100%
+        );
+    }
+
+    .luogo__content {
+      padding-top: clamp(4rem, 18vw, 6rem);
+      padding-bottom: clamp(2.5rem, 8vw, 3.5rem);
+    }
+
+    .luogo__body {
+      max-width: 34ch;
     }
   }
 </style>

@@ -1,4 +1,4 @@
----
+﻿---
 import { Image } from 'astro:assets';
 import logoImage from '../assets/images/logo.png';
 
@@ -16,6 +16,7 @@ const { class: className = '', size = 'sm', alt = 'Agriturismo La Natura' } = As
     src={logoImage}
     widths={[42, 56, 144, 288]}
     sizes={size === 'lg' ? '(max-width: 400px) 38vw, 9rem' : size === 'md' ? '3.5rem' : '2.6rem'}
+    quality={100}
     alt={alt}
     loading="eager"
     decoding="async"

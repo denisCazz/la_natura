@@ -15,8 +15,9 @@ const { t } = Astro.props;
     <Picture
       src={heroMenuImage}
       formats={['avif', 'webp']}
-      widths={[640, 960, 1280, 1600]}
+      widths={[1280, 1600, 1915]}
       sizes="100vw"
+      quality={100}
       alt=""
       loading="eager"
       fetchpriority="high"
@@ -34,35 +35,42 @@ const { t } = Astro.props;
 <style>
   .menu-hero {
     position: relative;
-    min-height: max(27rem, 55svh);
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
     overflow: hidden;
     color: #fff;
   }
 
-  .menu-hero__media,
-  .menu-hero__veil {
-    position: absolute;
-    inset: 0;
+  .menu-hero__media {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    /* hero-menu.png = 1915×821 */
+    aspect-ratio: 1915 / 821;
   }
 
-  .menu-hero__media {
-    z-index: 0;
+  .menu-hero__media :global(picture),
+  .menu-hero__media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .menu-hero__media :global(img) {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
-    object-position: center 54%;
+    object-position: center;
   }
 
   .menu-hero__veil {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
+    aspect-ratio: 1915 / 821;
+    pointer-events: none;
     background:
-      linear-gradient(to top, rgba(14, 24, 18, 0.9), rgba(14, 24, 18, 0.22) 68%, rgba(14, 24, 18, 0.1)),
-      linear-gradient(90deg, rgba(14, 24, 18, 0.62), transparent 72%);
+      linear-gradient(to top, rgba(14, 24, 18, 0.72), rgba(14, 24, 18, 0.18) 70%, rgba(14, 24, 18, 0.12));
   }
 
   .menu-hero__content {
@@ -71,7 +79,8 @@ const { t } = Astro.props;
     width: 100%;
     max-width: var(--max);
     margin: 0 auto;
-    padding: calc(var(--header-h) + 2rem) var(--space) clamp(2.5rem, 8vw, 4.5rem);
+    padding: 1.75rem var(--space) 2.75rem;
+    background: linear-gradient(180deg, rgba(14, 24, 18, 0.98), #0e1812);
   }
 
   .menu-hero .section__eyebrow {
@@ -91,13 +100,33 @@ const { t } = Astro.props;
     line-height: 1.6;
   }
 
-  @media (max-width: 520px) {
+  @media (min-width: 800px) {
     .menu-hero {
-      min-height: max(25rem, 55svh);
+      min-height: max(27rem, 55svh);
+      justify-content: flex-end;
+    }
+
+    .menu-hero__media {
+      position: absolute;
+      inset: 0;
+      aspect-ratio: auto;
+    }
+
+    .menu-hero__veil {
+      inset: 0;
+      aspect-ratio: auto;
+      background:
+        linear-gradient(to top, rgba(14, 24, 18, 0.9), rgba(14, 24, 18, 0.22) 68%, rgba(14, 24, 18, 0.1)),
+        linear-gradient(90deg, rgba(14, 24, 18, 0.62), transparent 72%);
+    }
+
+    .menu-hero__content {
+      padding: calc(var(--header-h) + 2rem) var(--space) clamp(2.5rem, 8vw, 4.5rem);
+      background: transparent;
     }
 
     .menu-hero__media :global(img) {
-      object-position: 58% center;
+      object-position: center 54%;
     }
   }
 </style>

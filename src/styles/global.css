@@ -1,4 +1,4 @@
-@import '@fontsource-variable/fraunces/wght.css';
+﻿@import '@fontsource-variable/fraunces/wght.css';
 @import '@fontsource-variable/fraunces/wght-italic.css';
 @import '@fontsource-variable/outfit/wght.css';
 
@@ -30,8 +30,17 @@
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
+  overflow-y: auto;
   scroll-padding-top: calc(var(--header-h) + 0.75rem);
   min-height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 body {
@@ -47,8 +56,17 @@ body {
     var(--color-surface);
   line-height: 1.65;
   overflow-x: clip;
+  overflow-y: auto;
   font-weight: 400;
   letter-spacing: 0.01em;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 body > main {
