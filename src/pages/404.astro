@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import NotFoundPage from '../components/NotFoundPage.astro';
+import Footer from '../components/Footer.astro';
+import { getDictionary, locales, type Locale } from '../i18n';
+
+/** Default locale for static 404.html; client script may retarget from URL path. */
+const locale: Locale = 'it';
+const t = getDictionary(locale);
+
+const copies = Object.fromEntries(
+  locales.map((l) => {
+    const dict = getDictionary(l);
+    return [
+      l,
+      {
+        metaTitle: dict.notFound.metaTitle,
+        metaDescription: dict.notFound.metaDescription,
+        brand: dict.hero.brand,
+        eyebrow: dict.notFound.eyebrow,
+        title: dict.notFound.title,
+        body: dict.notFound.body,
+        ctaHome: dict.notFound.ctaHome,
+        ctaMenu: dict.notFound.ctaMenu,
+        home: l === 'it' ? '/' : `/${l}/`,
+        menu: l === 'it' ? '/menu/' : `/${l}/menu/`,
+      },
+    ];
+  }),
+);
+---
+<BaseLayout
+  locale={locale}
+  t={t}
+  title={t.notFound.metaTitle}
+  description={t.notFound.metaDescription}
+  noindex
+>
+  <Header locale={locale} t={t} switchPath="/" />
+  <main id="main">
+    <NotFoundPage locale={locale} t={t} />
+  </main>
+  <Footer locale={locale} t={t} switchPath="/" />
+  <script is:inline define:vars={{ copies }}>
+    (function () {
+      var path = window.location.pathname || '/';
+      var locale = path.indexOf('/en/') === 0 || path === '/en' ? 'en'
+        : path.indexOf('/fr/') === 0 || path === '/fr' ? 'fr'
+        : 'it';
+      var copy = copies[locale];
+      if (!copy || locale === 'it') return;
+
+      document.documentElement.lang = locale;
+      document.title = copy.metaTitle;
+      var desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.setAttribute('content', copy.metaDescription);
+
+      var brand = document.querySelector('.not-found__brand');
+      var eyebrow = document.querySelector('.not-found__eyebrow');
+      var title = document.querySelector('#not-found-title');
+      var body = document.querySelector('.not-found__body');
+      var actions = document.querySelectorAll('.not-found__actions a');
+      if (brand) brand.textContent = copy.brand;
+      if (eyebrow) eyebrow.textContent = copy.eyebrow;
+      if (title) title.textContent = copy.title;
+      if (body) body.textContent = copy.body;
+      if (actions[0]) {
+        actions[0].textContent = copy.ctaHome;
+        actions[0].setAttribute('href', copy.home);
+      }
+      if (actions[1]) {
+        actions[1].textContent = copy.ctaMenu;
+        actions[1].setAttribute('href', copy.menu);
+      }
+    })();
+  </script>
+</BaseLayout>

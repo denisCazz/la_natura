@@ -14,12 +14,14 @@ import {
 interface Props {
   locale: Locale;
   t: Dictionary;
+  /** Path used for language switcher links (defaults to current URL). */
+  switchPath?: string;
 }
-const { locale, t } = Astro.props;
+const { locale, t, switchPath } = Astro.props;
 const wa = whatsappUrl(t.whatsapp.prefill);
 const home = localePath(locale);
 const menuHref = localePath(locale, 'menu');
-const pathname = Astro.url.pathname;
+const pathname = switchPath ?? Astro.url.pathname;
 const isMenuPage = pathname.includes('/menu');
 const localeOptions = {
   it: { code: 'IT', name: 'Italiano' },

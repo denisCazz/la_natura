@@ -89,6 +89,15 @@ export type Dictionary = {
     contactBody: string;
     updated: string;
   };
+  notFound: {
+    metaTitle: string;
+    metaDescription: string;
+    eyebrow: string;
+    title: string;
+    body: string;
+    ctaHome: string;
+    ctaMenu: string;
+  };
   whatsapp: { prefill: string };
   a11y: {
     skip: string;

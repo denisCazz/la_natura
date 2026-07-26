@@ -133,6 +133,16 @@ const fr: Dictionary = {
       'Pour toute demande relative \u00e0 la confidentialit\u00e9, contactez-nous par t\u00e9l\u00e9phone ou par courriel certifi\u00e9 (PEC).',
     updated: 'Derni\u00e8re mise \u00e0 jour : juillet 2026',
   },
+  notFound: {
+    metaTitle: 'Page introuvable | Agriturismo La Natura',
+    metaDescription:
+      'Cette page n\u2019existe pas. Retournez \u00e0 l\u2019Agriturismo La Natura \u00e0 Savigliano ou d\u00e9couvrez le menu.',
+    eyebrow: '404',
+    title: 'Cette page n\u2019existe pas',
+    body: 'Le chemin que vous cherchiez ne m\u00e8ne nulle part. Revenez \u00e0 l\u2019accueil ou d\u00e9couvrez le menu.',
+    ctaHome: 'Retour \u00e0 l\u2019accueil',
+    ctaMenu: 'Voir le menu',
+  },
   whatsapp: {
     prefill: 'Bonjour, je souhaite r\u00e9server une table \u00e0 l\u2019Agriturismo La Natura.',
   },
