@@ -132,6 +132,16 @@ const it: Dictionary = {
       'Per qualsiasi richiesta relativa alla privacy puoi contattarci telefonicamente o via PEC.',
     updated: 'Ultimo aggiornamento: luglio 2026',
   },
+  notFound: {
+    metaTitle: 'Pagina non trovata | Agriturismo La Natura',
+    metaDescription:
+      'La pagina che cerchi non esiste. Torna all\u2019Agriturismo La Natura a Savigliano o scopri il menu.',
+    eyebrow: '404',
+    title: 'Questa pagina non c\u2019\u00e8',
+    body: 'Il sentiero che cercavi non porta da nessuna parte. Torna alla home o scopri il menu.',
+    ctaHome: 'Torna alla home',
+    ctaMenu: 'Vedi il menu',
+  },
   whatsapp: {
     prefill: 'Ciao, vorrei prenotare un tavolo all\u2019Agriturismo La Natura.',
   },

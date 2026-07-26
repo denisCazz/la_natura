@@ -13,13 +13,15 @@ import {
 interface Props {
   locale: Locale;
   t: Dictionary;
+  /** Path used for language switcher links (defaults to current URL). */
+  switchPath?: string;
 }
-const { locale, t } = Astro.props;
+const { locale, t, switchPath } = Astro.props;
 const wa = whatsappUrl(t.whatsapp.prefill);
 const year = new Date().getFullYear();
 const home = localePath(locale);
 const privacy = localePath(locale, 'privacy');
-const pathname = Astro.url.pathname;
+const pathname = switchPath ?? Astro.url.pathname;
 const { legal } = SITE;
 const localeCodes = { it: 'IT', en: 'EN', fr: 'FR' } as const;
 ---

@@ -18,6 +18,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
+      filter: (page) => !page.includes('/404'),
       i18n: {
         defaultLocale: 'it',
         locales: {

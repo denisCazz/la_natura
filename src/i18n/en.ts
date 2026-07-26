@@ -132,6 +132,16 @@ const en: Dictionary = {
       'For any privacy-related request, please contact us by phone or certified email (PEC).',
     updated: 'Last updated: July 2026',
   },
+  notFound: {
+    metaTitle: 'Page not found | Agriturismo La Natura',
+    metaDescription:
+      'This page does not exist. Return to Agriturismo La Natura in Savigliano or browse the menu.',
+    eyebrow: '404',
+    title: 'This page isn\u2019t here',
+    body: 'The path you followed doesn\u2019t lead anywhere. Head home or explore the menu.',
+    ctaHome: 'Back to home',
+    ctaMenu: 'View the menu',
+  },
   whatsapp: {
     prefill: 'Hello, I would like to book a table at Agriturismo La Natura.',
   },

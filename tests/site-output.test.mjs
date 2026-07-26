@@ -40,6 +40,11 @@ test('sitemap includes hreflang alternates for localized pages', async () => {
   assert.match(sitemap, /hreflang="x-default"/);
 });
 
+test('sitemap excludes the 404 page', async () => {
+  const sitemap = await read('sitemap-0.xml');
+  assert.doesNotMatch(sitemap, /\/404/);
+});
+
 test('robots.txt points at the sitemap', async () => {
   const robots = await readFile(
     join(import.meta.dirname, '..', 'public', 'robots.txt'),
